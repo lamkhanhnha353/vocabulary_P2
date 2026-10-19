@@ -1,0 +1,1600 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>VSTEP B1 – Điền khuyết từ vựng (PDF)</title>
+    <style>
+        :root {
+            --primary: #1d4ed8;
+            --primary-light: #3b82f6;
+            --success: #16a34a;
+            --danger: #dc2626;
+            --bg: #f1f5f9;
+            --card: #ffffff;
+            --text: #0f172a;
+            --muted: #64748b;
+            --border: #e2e8f0;
+            --radius: 14px;
+            --safe-bottom: env(safe-area-inset-bottom, 12px);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html,
+        body {
+            height: 100%;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.45;
+            overscroll-behavior: none;
+        }
+
+        /* HOME */
+        #home {
+            min-height: 100%;
+            display: flex;
+            flex-direction: column;
+            padding: 0 0 1.5rem;
+        }
+
+        .home-header {
+            background: linear-gradient(135deg, #1e3a8a, #2563eb);
+            color: white;
+            padding: 1.75rem 1.25rem 1.5rem;
+            text-align: center;
+        }
+
+        .home-header h1 {
+            font-size: 1.35rem;
+            font-weight: 700;
+            margin-bottom: 0.3rem;
+        }
+
+        .home-header p {
+            font-size: 0.88rem;
+            opacity: 0.92;
+        }
+
+        .topic-list {
+            flex: 1;
+            padding: 1rem 1rem 0;
+            display: flex;
+            flex-direction: column;
+            gap: 0.65rem;
+            max-width: 480px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .topic-card {
+            display: flex;
+            align-items: center;
+            gap: 0.9rem;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1rem 1.1rem;
+            cursor: pointer;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+            text-align: left;
+            width: 100%;
+            font-family: inherit;
+            color: inherit;
+        }
+
+        .topic-card:active {
+            transform: scale(0.98);
+        }
+
+        .topic-card .icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: #dbeafe;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            flex-shrink: 0;
+        }
+
+        .topic-card .info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .topic-card .info strong {
+            display: block;
+            font-size: 1.05rem;
+            margin-bottom: 0.15rem;
+        }
+
+        .topic-card .info span {
+            font-size: 0.82rem;
+            color: var(--muted);
+        }
+
+        .topic-card .arrow {
+            color: var(--muted);
+            font-size: 1.2rem;
+        }
+
+        /* QUIZ */
+        #quiz {
+            display: none;
+            flex-direction: column;
+            height: 100%;
+            height: 100dvh;
+            max-width: 560px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        body.quiz-mode #home {
+            display: none;
+        }
+
+        body.quiz-mode #quiz {
+            display: flex;
+        }
+
+        .quiz-top {
+            background: white;
+            border-bottom: 1px solid var(--border);
+            padding: 0.7rem 0.85rem 0.75rem;
+            flex-shrink: 0;
+        }
+
+        .quiz-top-row {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            margin-bottom: 0.55rem;
+        }
+
+        .back-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            background: #f8fafc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.15rem;
+            color: var(--text);
+            flex-shrink: 0;
+        }
+
+        .back-btn:active {
+            background: #e2e8f0;
+        }
+
+        .topic-name {
+            flex: 1;
+            font-weight: 700;
+            font-size: 1rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .score-pill {
+            font-size: 0.8rem;
+            font-weight: 700;
+            background: #dbeafe;
+            color: var(--primary);
+            padding: 0.25rem 0.6rem;
+            border-radius: 999px;
+            white-space: nowrap;
+        }
+
+        .search-wrap {
+            position: relative;
+        }
+
+        .search-wrap input {
+            width: 100%;
+            padding: 0.6rem 0.85rem 0.6rem 2.3rem;
+            border: 1.5px solid var(--border);
+            border-radius: 10px;
+            font-size: 0.95rem;
+            background: #f8fafc;
+            outline: none;
+        }
+
+        .search-wrap input:focus {
+            border-color: var(--primary);
+            background: white;
+        }
+
+        .search-wrap .search-icon {
+            position: absolute;
+            left: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--muted);
+            font-size: 1rem;
+            pointer-events: none;
+        }
+
+        .lookup-drop {
+            display: none;
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: calc(100% + 4px);
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+            max-height: 220px;
+            overflow-y: auto;
+            z-index: 50;
+        }
+
+        .lookup-drop.show {
+            display: block;
+        }
+
+        .lookup-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.55rem 0.85rem;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .lookup-item:last-child {
+            border-bottom: none;
+        }
+
+        .lookup-item .lookup-text {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .lookup-item .en {
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .lookup-item .vi {
+            font-size: 0.85rem;
+            color: var(--muted);
+        }
+
+        .prog-line {
+            height: 3px;
+            background: #e2e8f0;
+            flex-shrink: 0;
+        }
+
+        .prog-line-fill {
+            height: 100%;
+            background: var(--primary);
+            width: 0%;
+            transition: width 0.2s;
+        }
+
+        .q-area {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1rem 0.85rem 0.5rem;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .q-meta-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 0.45rem;
+            gap: 0.5rem;
+        }
+
+        .q-meta {
+            font-size: 0.78rem;
+            color: var(--muted);
+            margin-bottom: 0;
+        }
+
+        .mark-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            padding: 0.3rem 0.65rem;
+            border-radius: 8px;
+            border: 1.5px solid var(--border);
+            background: #f8fafc;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--muted);
+            cursor: pointer;
+            font-family: inherit;
+            flex-shrink: 0;
+        }
+
+        .mark-btn:active {
+            transform: scale(0.96);
+        }
+
+        .mark-btn.on {
+            background: #fef3c7;
+            border-color: #fbbf24;
+            color: #b45309;
+        }
+
+        .q-text {
+            font-size: 1.15rem;
+            font-weight: 650;
+            margin-bottom: 1.1rem;
+            line-height: 1.4;
+        }
+
+        .q-text strong {
+            color: var(--primary);
+        }
+
+        /* MC options */
+        .opts {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .opt {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.65rem;
+            padding: 0.8rem 0.9rem;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            background: white;
+            cursor: pointer;
+        }
+
+        .opt:active {
+            transform: scale(0.99);
+        }
+
+        .opt.selected {
+            border-color: var(--primary);
+            background: #eff6ff;
+        }
+
+        .opt.correct {
+            border-color: var(--success);
+            background: #dcfce7;
+        }
+
+        .opt.wrong {
+            border-color: var(--danger);
+            background: #fee2e2;
+        }
+
+        .opt .ltr {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.85rem;
+            flex-shrink: 0;
+        }
+
+        .opt.selected .ltr {
+            background: var(--primary);
+            color: white;
+        }
+
+        .opt.correct .ltr {
+            background: var(--success);
+            color: white;
+        }
+
+        .opt.wrong .ltr {
+            background: var(--danger);
+            color: white;
+        }
+
+        .opt .txt {
+            flex: 1;
+            padding-top: 0.2rem;
+            font-size: 0.98rem;
+        }
+
+        /* Fill-in */
+        .fill-wrap {
+            display: flex;
+            flex-direction: column;
+            gap: 0.65rem;
+        }
+
+        .fill-row {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .fill-input {
+            flex: 1;
+            padding: 0.85rem 1rem;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            font-size: 1.05rem;
+            outline: none;
+            background: white;
+            font-family: inherit;
+        }
+
+        .fill-input:focus {
+            border-color: var(--primary);
+        }
+
+        .fill-input.ok {
+            border-color: var(--success);
+            background: #dcfce7;
+        }
+
+        .fill-input.err {
+            border-color: var(--danger);
+            background: #fee2e2;
+        }
+
+        .fill-input:disabled {
+            opacity: 0.95;
+        }
+
+        .fill-check-btn {
+            padding: 0.85rem 1.2rem;
+            border: none;
+            border-radius: 12px;
+            background: var(--primary);
+            color: white;
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            font-family: inherit;
+            white-space: nowrap;
+        }
+
+        .fill-check-btn:active {
+            background: #1e40af;
+        }
+
+        .fill-hint {
+            font-size: 0.85rem;
+            color: var(--muted);
+        }
+
+        .fb {
+            margin-top: 0.85rem;
+            padding: 0.65rem 0.9rem;
+            border-radius: 10px;
+            font-size: 0.92rem;
+            display: none;
+        }
+
+        .fb.show {
+            display: block;
+        }
+
+        .fb.ok {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .fb.err {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        /* Speaker */
+        .speak-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            border: none;
+            background: #dbeafe;
+            color: var(--primary);
+            font-size: 1rem;
+            cursor: pointer;
+            vertical-align: middle;
+            margin-left: 0.35rem;
+            flex-shrink: 0;
+            transition: background 0.15s, transform 0.1s;
+        }
+
+        .speak-btn:active {
+            transform: scale(0.92);
+            background: #bfdbfe;
+        }
+
+        .speak-btn.speaking {
+            background: var(--primary);
+            color: white;
+            animation: pulse 0.8s ease infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.08);
+            }
+        }
+
+        .q-text .speak-btn {
+            width: 36px;
+            height: 36px;
+            font-size: 1.1rem;
+        }
+
+        .fill-row .speak-btn {
+            width: 42px;
+            height: 42px;
+            font-size: 1.15rem;
+        }
+
+        /* Grid panel */
+        .q-grid-panel {
+            display: none;
+            flex-shrink: 0;
+            background: white;
+            border-top: 1px solid var(--border);
+            padding: 0.65rem 0.75rem;
+            max-height: 180px;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .q-grid-panel.show {
+            display: block;
+        }
+
+        .grid-filter {
+            display: flex;
+            gap: 0.4rem;
+            margin-bottom: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-chip {
+            padding: 0.25rem 0.6rem;
+            border-radius: 999px;
+            border: 1.5px solid var(--border);
+            background: #f8fafc;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--muted);
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        .filter-chip.active {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+        }
+
+        .filter-chip.marked-filter.active {
+            background: #f59e0b;
+            border-color: #f59e0b;
+            color: white;
+        }
+
+        .q-grid {
+            display: grid;
+            grid-template-columns: repeat(10, 1fr);
+            gap: 0.35rem;
+        }
+
+        .q-num-btn {
+            aspect-ratio: 1;
+            min-height: 32px;
+            border-radius: 8px;
+            border: 1.5px solid var(--border);
+            background: #f8fafc;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+            font-family: inherit;
+            position: relative;
+        }
+
+        .q-num-btn:active {
+            transform: scale(0.94);
+        }
+
+        .q-num-btn.current {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .q-num-btn.answered {
+            background: #dcfce7;
+            border-color: #86efac;
+            color: #166534;
+        }
+
+        .q-num-btn.answered.current {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .q-num-btn.wrong {
+            background: #fee2e2;
+            border-color: #fca5a5;
+            color: #991b1b;
+        }
+
+        .q-num-btn.wrong.current {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .q-num-btn.marked::after {
+            content: "★";
+            position: absolute;
+            top: -3px;
+            right: -2px;
+            font-size: 0.55rem;
+            color: #f59e0b;
+            line-height: 1;
+        }
+
+        .q-num-btn.marked.current::after {
+            color: #fde68a;
+        }
+
+        /* Nav */
+        .nav-bar {
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.65rem 0.85rem calc(0.65rem + var(--safe-bottom));
+            background: white;
+            border-top: 1px solid var(--border);
+            gap: 0.5rem;
+        }
+
+        .nav-arrow {
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
+            border: 2px solid var(--border);
+            background: #f8fafc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text);
+            flex-shrink: 0;
+            user-select: none;
+        }
+
+        .nav-arrow:active {
+            background: #e2e8f0;
+        }
+
+        .nav-arrow:disabled {
+            opacity: 0.35;
+            pointer-events: none;
+        }
+
+        .nav-center {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.35rem;
+        }
+
+        .nav-center .q-count {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--muted);
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 0.4rem;
+        }
+
+        .nav-btn {
+            padding: 0.4rem 0.7rem;
+            border-radius: 8px;
+            border: none;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        .nav-btn.check {
+            background: var(--success);
+            color: white;
+        }
+
+        .nav-btn.reset {
+            background: #f1f5f9;
+            color: var(--muted);
+            border: 1px solid var(--border);
+        }
+
+        .nav-btn.grid-btn {
+            background: #eff6ff;
+            color: var(--primary);
+            border: 1px solid #bfdbfe;
+        }
+
+        .nav-btn.grid-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        /* Result */
+        .result-overlay {
+            display: none;
+            position: absolute;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.45);
+            z-index: 80;
+            align-items: flex-end;
+            justify-content: center;
+        }
+
+        .result-overlay.show {
+            display: flex;
+        }
+
+        .result-sheet {
+            background: white;
+            width: 100%;
+            border-radius: 18px 18px 0 0;
+            padding: 1.5rem 1.25rem calc(1.5rem + var(--safe-bottom));
+            text-align: center;
+            animation: slideUp 0.25s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(40px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .result-sheet .big {
+            font-size: 2.6rem;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        .result-sheet p {
+            margin-top: 0.4rem;
+            color: var(--muted);
+        }
+
+        .result-sheet .actions {
+            display: flex;
+            gap: 0.6rem;
+            margin-top: 1.25rem;
+        }
+
+        .result-sheet .actions button {
+            flex: 1;
+            padding: 0.75rem;
+            border-radius: 12px;
+            border: none;
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-outline {
+            background: white;
+            color: var(--primary);
+            border: 2px solid var(--primary) !important;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="home">
+        <div class="home-header">
+            <h1>VSTEP B1 – Điền khuyết</h1>
+            <p>Chỉ từ PDF · Điền khuyết 2 chiều · ~100 câu/chủ đề</p>
+        </div>
+        <div class="topic-list" id="topicList"></div>
+    </div>
+
+    <div id="quiz">
+        <div class="quiz-top">
+            <div class="quiz-top-row">
+                <button class="back-btn" id="backBtn" aria-label="Quay lại">←</button>
+                <div class="topic-name" id="topicName">Động từ</div>
+                <div class="score-pill">Đúng: <span id="scoreNum">0</span></div>
+            </div>
+            <div class="search-wrap">
+                <span class="search-icon">🔍</span>
+                <input type="text" id="searchInput" placeholder="Tra nghĩa: develop, cải thiện..." autocomplete="off">
+                <div class="lookup-drop" id="lookupDrop"></div>
+            </div>
+        </div>
+        <div class="prog-line">
+            <div class="prog-line-fill" id="progFill"></div>
+        </div>
+
+        <div class="q-area" id="qArea"></div>
+
+        <div class="q-grid-panel" id="qGridPanel">
+            <div class="grid-filter">
+                <button type="button" class="filter-chip active" data-filter="all">Tất cả</button>
+                <button type="button" class="filter-chip marked-filter" data-filter="marked">★ Đã đánh dấu</button>
+            </div>
+            <div class="q-grid" id="qGrid"></div>
+        </div>
+
+        <div class="nav-bar">
+            <button class="nav-arrow" id="prevBtn" aria-label="Câu trước">‹</button>
+            <div class="nav-center">
+                <div class="q-count"><span id="curNum">1</span> / <span id="totalNum">100</span></div>
+                <div class="nav-actions">
+                    <button class="nav-btn grid-btn" id="gridBtn" title="Danh sách câu">＃</button>
+                    <button class="nav-btn check" id="checkBtn">Kết quả</button>
+                    <button class="nav-btn reset" id="resetBtn">Làm lại</button>
+                </div>
+            </div>
+            <button class="nav-arrow" id="nextBtn" aria-label="Câu sau">›</button>
+        </div>
+
+        <div class="result-overlay" id="resultOverlay">
+            <div class="result-sheet">
+                <div class="big" id="resultScore">0/100</div>
+                <p id="resultMsg"></p>
+                <div class="actions">
+                    <button class="btn-outline" id="resultClose">Đóng</button>
+                    <button class="btn-primary" id="resultRetry">Làm lại</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        /* ========== VOCAB – CHỈ TỪ PDF ========== */
+        const DATA = {
+            verbs: {
+                title: "Động từ",
+                icon: "⚡",
+                items: [
+                    { en: "develop", vi: "phát triển" },
+                    { en: "improve", vi: "cải thiện" },
+                    { en: "widen", vi: "mở rộng" },
+                    { en: "discover", vi: "khám phá" },
+                    { en: "adjust", vi: "điều chỉnh" },
+                    { en: "change", vi: "thay đổi" },
+                    { en: "approach", vi: "tiếp cận" },
+                    { en: "experience", vi: "trải nghiệm" },
+                    { en: "limit", vi: "hạn chế" },
+                    { en: "join", vi: "tham gia" },
+                    { en: "choose", vi: "chọn" },
+                    { en: "reduce", vi: "giảm" },
+                    { en: "promote", vi: "thúc đẩy, khuyến khích" },
+                    { en: "enhance", vi: "nâng cao" },
+                    { en: "protect", vi: "bảo vệ" },
+                    { en: "maintain", vi: "duy trì" },
+                    { en: "have", vi: "có" },
+                    { en: "advance", vi: "nâng cao" },
+                    { en: "explore", vi: "khám phá" },
+                    { en: "raise", vi: "tăng, nâng" },
+                    { en: "decrease", vi: "giảm" },
+                    { en: "increase", vi: "tăng" },
+                    { en: "save", vi: "lưu giữ, tiết kiệm, bảo vệ" },
+                    { en: "create", vi: "tạo nên, tạo ra" },
+                    { en: "enact", vi: "ban hành" },
+                    { en: "connect", vi: "kết nối" },
+                    { en: "lessen", vi: "giảm" },
+                    { en: "eat", vi: "ăn" }
+                ]
+            },
+            education: {
+                title: "1. Education",
+                icon: "📚",
+                items: [
+                    { en: "communication skills", vi: "kỹ năng giao tiếp" },
+                    { en: "the insight", vi: "sự hiểu biết" },
+                    { en: "study plan", vi: "kế hoạch học tập" },
+                    { en: "valuable inputs", vi: "những thông tin có giá trị" },
+                    { en: "self-study ability", vi: "khả năng tự học" },
+                    { en: "training courses", vi: "các khóa đào tạo" },
+                    { en: "laziness", vi: "sự lười biếng" },
+                    { en: "many languages", vi: "nhiều ngôn ngữ" },
+                    { en: "the mindset", vi: "tư duy, lối suy nghĩ" },
+                    { en: "future goals", vi: "mục tiêu tương lai" },
+                    { en: "many things around", vi: "nhiều thứ xung quanh" },
+                    { en: "academic burden", vi: "gánh nặng học tập" },
+                    { en: "knowledge", vi: "kiến thức" },
+                    { en: "memories", vi: "kỷ ức, ký niệm" },
+                    { en: "memory", vi: "trí nhớ" },
+                    { en: "studying abroad", vi: "du học nước ngoài" }
+                ]
+            },
+            entertainment: {
+                title: "2. Entertainment",
+                icon: "🎭",
+                items: [
+                    { en: "the creative capacity", vi: "khả năng sáng tạo" },
+                    { en: "personal relationships", vi: "mối quan hệ cá nhân" },
+                    { en: "online time", vi: "thời gian trực tuyến" },
+                    { en: "the frame of mind", vi: "tâm trạng" },
+                    { en: "outdoor activities", vi: "hoạt động ngoài trời" },
+                    { en: "the positive mode", vi: "chế độ, trạng thái tích cực" },
+                    { en: "confidence", vi: "sự tự tin" },
+                    { en: "connections with the community", vi: "sự kết nối với cộng đồng" },
+                    { en: "social interaction", vi: "sự tương tác xã hội" },
+                    { en: "different cultures and traditions", vi: "những truyền thống và văn hóa khác nhau" },
+                    { en: "a lot of emotion", vi: "nhiều cảm xúc" },
+                    { en: "tension", vi: "sự căng thẳng" },
+                    { en: "happiness", vi: "niềm hạnh phúc" },
+                    { en: "historic monuments", vi: "di sản văn hóa" }
+                ]
+            },
+            working: {
+                title: "3. Working",
+                icon: "💼",
+                items: [
+                    { en: "social skills", vi: "kỹ năng xã hội" },
+                    { en: "a career path", vi: "một con đường sự nghiệp" },
+                    { en: "working methods", vi: "phương pháp làm việc" },
+                    { en: "workplace challenges", vi: "những thách thức nơi công sở" },
+                    { en: "many fields", vi: "nhiều lĩnh vực" },
+                    { en: "practical experiences", vi: "kinh nghiệm thực tế" },
+                    { en: "hardships", vi: "những khó khăn" },
+                    { en: "work-life balance", vi: "sự cân bằng giữa công việc và cuộc sống" },
+                    { en: "success", vi: "thành công" },
+                    { en: "the work duration", vi: "thời gian làm việc" },
+                    { en: "job promotions", vi: "sự thăng tiến trong công việc" },
+                    { en: "prospects", vi: "triển vọng, cơ hội thành công" },
+                    { en: "stepping stone", vi: "bệ phóng, bước đệm cho sự nghiệp" },
+                    { en: "management skills", vi: "kỹ năng quản lý" }
+                ]
+            },
+            environment: {
+                title: "4. Environment",
+                icon: "🌿",
+                items: [
+                    { en: "natural resources", vi: "tài nguyên thiên nhiên" },
+                    { en: "the beauty of nature", vi: "vẻ đẹp thiên nhiên" },
+                    { en: "the living environment", vi: "môi trường sống" },
+                    { en: "clean surroundings", vi: "môi trường sạch sẽ xung quanh" },
+                    { en: "pollution", vi: "sự ô nhiễm" },
+                    { en: "organizations", vi: "các tổ chức" },
+                    { en: "recycling", vi: "tái chế" },
+                    { en: "biodiversity", vi: "sự đa dạng sinh học" },
+                    { en: "the pure atmosphere", vi: "bầu không khí trong lành" },
+                    { en: "more airy space", vi: "không gian thoáng mát hơn" },
+                    { en: "emissions", vi: "khí thải" },
+                    { en: "awareness", vi: "nhận thức" },
+                    { en: "plastic waste", vi: "rác thải nhựa" },
+                    { en: "laws / policies", vi: "luật / chính sách" }
+                ]
+            },
+            finance: {
+                title: "5. Finance",
+                icon: "💰",
+                items: [
+                    { en: "the wage and income", vi: "tiền lương và thu nhập" },
+                    { en: "the budget", vi: "ngân sách" },
+                    { en: "financial pressure", vi: "áp lực tài chính" },
+                    { en: "prospective customers", vi: "khách hàng tiềm năng" },
+                    { en: "investment", vi: "đầu tư" },
+                    { en: "a strong foundation", vi: "một nền tảng vững chắc" },
+                    { en: "a worthy life", vi: "một cuộc sống xứng đáng" },
+                    { en: "potential savings", vi: "khoản tiền tiết kiệm tiềm năng" },
+                    { en: "the quality of life", vi: "chất lượng cuộc sống" },
+                    { en: "difficulties", vi: "những khó khăn" },
+                    { en: "products and services", vi: "sản phẩm và dịch vụ" },
+                    { en: "living standards", vi: "điều kiện sống" }
+                ]
+            },
+            health: {
+                title: "6. Health",
+                icon: "❤️",
+                items: [
+                    { en: "exercise habits", vi: "thói quen tập thể dục" },
+                    { en: "understanding", vi: "sự hiểu biết" },
+                    { en: "daily routines", vi: "thói quen hằng ngày" },
+                    { en: "the priority over health", vi: "sự ưu tiên cho sức khỏe" },
+                    { en: "nutritious dishes", vi: "món ăn giàu dinh dưỡng" },
+                    { en: "healthcare services", vi: "dịch vụ chăm sóc sức khỏe" },
+                    { en: "unhealthy routines", vi: "thói quen không lành mạnh" },
+                    { en: "physical and mental health", vi: "sức khỏe thể chất và tinh thần" },
+                    { en: "prevention", vi: "sự/việc phòng ngừa" },
+                    { en: "a healthy lifestyle", vi: "một lối sống lành mạnh" },
+                    { en: "the endurance", vi: "sức bền" },
+                    { en: "toxic habits", vi: "thói quen độc hại" },
+                    { en: "schemes to protect health", vi: "những kế hoạch để bảo vệ sức khỏe" },
+                    { en: "energy", vi: "năng lượng" }
+                ]
+            }
+        };
+
+        const TOPIC_ORDER = ["verbs", "education", "entertainment", "working", "environment", "finance", "health"];
+
+        /* ========== HELPERS ========== */
+        function shuffle(a) {
+            const arr = [...a];
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
+        }
+        function pickDistractors(item, pool, n = 3) {
+            return shuffle(pool.filter(x => x.en !== item.en)).slice(0, n);
+        }
+
+        /** Normalize for flexible answer checking */
+        function normalize(s) {
+            return String(s)
+                .toLowerCase()
+                .normalize("NFC")
+                .replace(/[.,;:!?'"“”‘’()/]/g, " ")
+                .replace(/\s+/g, " ")
+                .trim();
+        }
+
+        /** Accept main meaning or any part separated by comma / slash */
+        function isAnswerMatch(userInput, correct) {
+            const u = normalize(userInput);
+            if (!u) return false;
+            const c = normalize(correct);
+            if (u === c) return true;
+            // allow any alternative separated by , or /
+            const parts = correct.split(/[,/]/).map(p => normalize(p)).filter(Boolean);
+            if (parts.some(p => p === u || u.includes(p) || p.includes(u))) return true;
+            // allow without leading "the " / "a " / "an "
+            const stripArt = (s) => s.replace(/^(the|a|an)\s+/, "");
+            if (stripArt(u) === stripArt(c)) return true;
+            return false;
+        }
+
+        /**
+         * Build ~100 questions per topic
+         * Majority = fill-in (điền khuyết), minority = MC
+         */
+        function buildQuestions(key) {
+            const items = DATA[key].items;
+            const qs = [];
+
+            // --- FILL-IN majority (x3 rounds each direction) ---
+            for (let r = 0; r < 3; r++) {
+                shuffle(items).forEach(it => {
+                    qs.push({
+                        mode: "fill",
+                        type: "en2vi",
+                        prompt: it.en,
+                        answer: it.vi,
+                        qLabel: `Điền nghĩa tiếng Việt của từ <strong>"${it.en}"</strong>`
+                    });
+                });
+            }
+            for (let r = 0; r < 3; r++) {
+                shuffle(items).forEach(it => {
+                    qs.push({
+                        mode: "fill",
+                        type: "vi2en",
+                        prompt: it.vi,
+                        answer: it.en,
+                        qLabel: `Điền từ tiếng Anh có nghĩa <strong>"${it.vi}"</strong>`
+                    });
+                });
+            }
+
+            // --- MC minority (1 round each direction) ---
+            shuffle(items).forEach(it => {
+                const dist = pickDistractors(it, items, 3);
+                if (dist.length < 2) return;
+                qs.push({
+                    mode: "mc",
+                    type: "en2vi",
+                    q: `Từ <strong>"${it.en}"</strong> nghĩa là gì?`,
+                    options: shuffle([
+                        { text: it.vi, correct: true },
+                        ...dist.map(d => ({ text: d.vi, correct: false }))
+                    ]),
+                    answer: it.vi,
+                    prompt: it.en
+                });
+            });
+            shuffle(items).forEach(it => {
+                const dist = pickDistractors(it, items, 3);
+                if (dist.length < 2) return;
+                qs.push({
+                    mode: "mc",
+                    type: "vi2en",
+                    q: `<strong>"${it.vi}"</strong> tương ứng từ nào?`,
+                    options: shuffle([
+                        { text: it.en, correct: true },
+                        ...dist.map(d => ({ text: d.en, correct: false }))
+                    ]),
+                    answer: it.en,
+                    prompt: it.en
+                });
+            });
+
+            return shuffle(qs).slice(0, 100);
+        }
+
+        /* ========== STATE ========== */
+        const state = {};
+        TOPIC_ORDER.forEach(k => {
+            state[k] = { questions: null, current: 0, answers: [], correct: 0, marked: [], fillTexts: [] };
+        });
+        let currentTopic = null;
+        let gridFilter = "all";
+
+        const FULL_DICT = [];
+        Object.values(DATA).forEach(t => t.items.forEach(it => FULL_DICT.push(it)));
+
+        /* ========== TTS ========== */
+        function speak(text, btn) {
+            if (!window.speechSynthesis) {
+                alert("Trình duyệt không hỗ trợ đọc phát âm.");
+                return;
+            }
+            window.speechSynthesis.cancel();
+            const clean = String(text).replace(/<[^>]+>/g, "").trim();
+            if (!clean) return;
+            const utter = new SpeechSynthesisUtterance(clean);
+            utter.lang = "en-US";
+            utter.rate = 0.9;
+            utter.pitch = 1;
+            if (btn) {
+                btn.classList.add("speaking");
+                utter.onend = () => btn.classList.remove("speaking");
+                utter.onerror = () => btn.classList.remove("speaking");
+            }
+            window.speechSynthesis.speak(utter);
+        }
+
+        /* ========== HOME ========== */
+        function renderHome() {
+            const list = document.getElementById("topicList");
+            list.innerHTML = TOPIC_ORDER.map(k => {
+                const t = DATA[k];
+                return `<button class="topic-card" data-key="${k}">
+      <div class="icon">${t.icon}</div>
+      <div class="info">
+        <strong>${t.title}</strong>
+        <span>~100 câu · Điền khuyết + trắc nghiệm</span>
+      </div>
+      <div class="arrow">›</div>
+    </button>`;
+            }).join("");
+            list.querySelectorAll(".topic-card").forEach(btn => {
+                btn.addEventListener("click", () => openTopic(btn.dataset.key));
+            });
+        }
+
+        /* ========== OPEN / CLOSE ========== */
+        function openTopic(key) {
+            currentTopic = key;
+            const st = state[key];
+            if (!st.questions) {
+                st.questions = buildQuestions(key);
+                st.answers = new Array(st.questions.length).fill(null);
+                st.marked = new Array(st.questions.length).fill(false);
+                st.fillTexts = new Array(st.questions.length).fill("");
+                st.current = 0;
+                st.correct = 0;
+            }
+            if (!st.marked || st.marked.length !== st.questions.length) {
+                st.marked = new Array(st.questions.length).fill(false);
+            }
+            if (!st.fillTexts || st.fillTexts.length !== st.questions.length) {
+                st.fillTexts = new Array(st.questions.length).fill("");
+            }
+            document.body.classList.add("quiz-mode");
+            document.getElementById("topicName").textContent = DATA[key].title;
+            document.getElementById("totalNum").textContent = st.questions.length;
+            document.getElementById("scoreNum").textContent = st.correct;
+            document.getElementById("searchInput").value = "";
+            document.getElementById("lookupDrop").classList.remove("show");
+            document.getElementById("qGridPanel").classList.remove("show");
+            document.getElementById("gridBtn").classList.remove("active");
+            gridFilter = "all";
+            showQuestion();
+        }
+
+        function closeTopic() {
+            if (window.speechSynthesis) window.speechSynthesis.cancel();
+            document.getElementById("qGridPanel").classList.remove("show");
+            document.getElementById("gridBtn").classList.remove("active");
+            document.body.classList.remove("quiz-mode");
+            currentTopic = null;
+        }
+
+        /* ========== SHOW QUESTION ========== */
+        function showQuestion() {
+            const st = state[currentTopic];
+            const q = st.questions[st.current];
+            const ans = st.answers[st.current];
+            const isMarked = st.marked[st.current];
+            const letters = ["A", "B", "C", "D"];
+
+            let bodyHtml = "";
+
+            if (q.mode === "fill") {
+                // FILL-IN
+                const saved = st.fillTexts[st.current] || "";
+                const disabled = ans !== null ? "disabled" : "";
+                let inputCls = "fill-input";
+                if (ans !== null) inputCls += ans.correct ? " ok" : " err";
+
+                // Speaker: for vi2en (typing English) → play correct English answer as hint
+                // for en2vi → play the English prompt word
+                const speakWord = q.type === "vi2en" ? q.answer : q.prompt;
+                const speakTitle = q.type === "vi2en"
+                    ? "Nghe từ tiếng Anh (gợi ý)"
+                    : "Nghe phát âm từ tiếng Anh";
+
+                bodyHtml = `
+      <div class="q-text">${q.qLabel}
+        ${q.type === "en2vi" ? `<button type="button" class="speak-btn" data-speak="${q.prompt.replace(/"/g, "&quot;")}" title="Nghe phát âm">🔊</button>` : ""}
+      </div>
+      <div class="fill-wrap">
+        <div class="fill-row">
+          <input type="text" class="${inputCls}" id="fillInput"
+            placeholder="${q.type === "en2vi" ? "Nhập nghĩa tiếng Việt..." : "Nhập từ tiếng Anh..."}"
+            value="${saved.replace(/"/g, "&quot;")}"
+            ${disabled}
+            autocomplete="off"
+            autocapitalize="off"
+            spellcheck="false">
+          ${q.type === "vi2en" ? `<button type="button" class="speak-btn" data-speak="${speakWord.replace(/"/g, "&quot;")}" title="${speakTitle}">🔊</button>` : ""}
+        </div>
+        ${ans === null ? `<button type="button" class="fill-check-btn" id="fillCheckBtn">Kiểm tra</button>
+          <div class="fill-hint">${q.type === "vi2en" ? "💡 Bấm loa để nghe từ tiếng Anh nếu quên" : "Không phân biệt hoa thường · có thể chấp nhận nghĩa gần đúng"}</div>` : ""}
+      </div>
+    `;
+            } else {
+                // MC
+                let qHtml = q.q;
+                if (q.type === "en2vi" && q.prompt) {
+                    qHtml = `Từ <strong>"${q.prompt}"</strong> <button type="button" class="speak-btn" data-speak="${q.prompt.replace(/"/g, "&quot;")}" title="Nghe phát âm">🔊</button> nghĩa là gì?`;
+                }
+                const opts = q.options.map((op, i) => {
+                    let cls = "opt";
+                    if (ans !== null) {
+                        if (op.correct) cls += " correct";
+                        if (ans === i && !op.correct) cls += " wrong";
+                        if (ans === i) cls += " selected";
+                    }
+                    const isEn = q.type === "vi2en" || /^[a-zA-Z]/.test(op.text);
+                    const speakBtn = isEn
+                        ? `<button type="button" class="speak-btn" data-speak="${op.text.replace(/"/g, "&quot;")}" title="Nghe phát âm">🔊</button>`
+                        : "";
+                    return `<div class="${cls}" data-i="${i}">
+        <span class="ltr">${letters[i]}</span>
+        <span class="txt">${op.text}</span>
+        ${speakBtn}
+      </div>`;
+                }).join("");
+                bodyHtml = `<div class="q-text">${qHtml}</div><div class="opts">${opts}</div>`;
+            }
+
+            // Feedback
+            let fb = "";
+            if (ans !== null) {
+                if (q.mode === "fill") {
+                    const ok = ans.correct;
+                    const ansSpeak = q.type === "vi2en"
+                        ? ` <button type="button" class="speak-btn" data-speak="${q.answer.replace(/"/g, "&quot;")}" title="Nghe phát âm">🔊</button>`
+                        : "";
+                    fb = `<div class="fb show ${ok ? "ok" : "err"}">
+        ${ok ? "✅ Đúng!" : "❌ Sai. Đáp án: <strong>" + q.answer + "</strong>"}${ansSpeak}
+      </div>`;
+                } else {
+                    const ok = q.options[ans].correct;
+                    const ansIsEn = q.type === "vi2en";
+                    const ansSpeak = ansIsEn
+                        ? ` <button type="button" class="speak-btn" data-speak="${q.answer.replace(/"/g, "&quot;")}" title="Nghe phát âm">🔊</button>`
+                        : "";
+                    fb = `<div class="fb show ${ok ? "ok" : "err"}">
+        ${ok ? "✅ Đúng!" : "❌ Sai. Đáp án: <strong>" + q.answer + "</strong>"}${ansSpeak}
+      </div>`;
+                }
+            }
+
+            const modeLabel = q.mode === "fill"
+                ? (q.type === "en2vi" ? "Điền · Anh → Việt" : "Điền · Việt → Anh")
+                : (q.type === "en2vi" ? "TN · Anh → Việt" : "TN · Việt → Anh");
+
+            document.getElementById("qArea").innerHTML = `
+    <div class="q-meta-row">
+      <div class="q-meta">Câu ${st.current + 1} · ${modeLabel}</div>
+      <button type="button" class="mark-btn ${isMarked ? "on" : ""}" id="markBtn" title="Đánh dấu xem lại">
+        <span class="star">${isMarked ? "★" : "☆"}</span>
+        <span>${isMarked ? "Đã đánh dấu" : "Đánh dấu"}</span>
+      </button>
+    </div>
+    ${bodyHtml}
+    ${fb}
+  `;
+
+            // Events
+            document.getElementById("markBtn").addEventListener("click", toggleMark);
+
+            document.getElementById("qArea").querySelectorAll(".speak-btn").forEach(btn => {
+                btn.addEventListener("click", (e) => {
+                    e.stopPropagation();
+                    speak(btn.dataset.speak, btn);
+                });
+            });
+
+            if (q.mode === "fill") {
+                const input = document.getElementById("fillInput");
+                if (input && ans === null) {
+                    input.focus();
+                    input.addEventListener("input", () => {
+                        st.fillTexts[st.current] = input.value;
+                    });
+                    input.addEventListener("keydown", (e) => {
+                        if (e.key === "Enter") checkFill();
+                    });
+                    document.getElementById("fillCheckBtn").addEventListener("click", checkFill);
+                }
+            } else {
+                document.getElementById("qArea").querySelectorAll(".opt").forEach(el => {
+                    el.addEventListener("click", (e) => {
+                        if (e.target.closest(".speak-btn")) return;
+                        selectOpt(+el.dataset.i);
+                    });
+                });
+            }
+
+            document.getElementById("curNum").textContent = st.current + 1;
+            document.getElementById("progFill").style.width = ((st.current + 1) / st.questions.length * 100) + "%";
+            document.getElementById("scoreNum").textContent = st.correct;
+            document.getElementById("prevBtn").disabled = st.current === 0;
+            document.getElementById("nextBtn").disabled = st.current === st.questions.length - 1;
+            document.getElementById("qArea").scrollTop = 0;
+            updateQGrid();
+        }
+
+        function checkFill() {
+            const st = state[currentTopic];
+            if (st.answers[st.current] !== null) return;
+            const q = st.questions[st.current];
+            const input = document.getElementById("fillInput");
+            const val = (input ? input.value : st.fillTexts[st.current] || "").trim();
+            st.fillTexts[st.current] = val;
+            const ok = isAnswerMatch(val, q.answer);
+            st.answers[st.current] = { correct: ok, text: val };
+            if (ok) st.correct++;
+            showQuestion();
+        }
+
+        function selectOpt(i) {
+            const st = state[currentTopic];
+            if (st.answers[st.current] !== null) return;
+            st.answers[st.current] = i;
+            if (st.questions[st.current].options[i].correct) st.correct++;
+            showQuestion();
+        }
+
+        function toggleMark() {
+            const st = state[currentTopic];
+            st.marked[st.current] = !st.marked[st.current];
+            showQuestion();
+        }
+
+        /* ========== GRID ========== */
+        function buildQGrid() {
+            const st = state[currentTopic];
+            const grid = document.getElementById("qGrid");
+            if (!st || !st.questions) { grid.innerHTML = ""; return; }
+            grid.innerHTML = st.questions.map((_, i) =>
+                `<button type="button" class="q-num-btn" data-idx="${i}">${i + 1}</button>`
+            ).join("");
+            grid.querySelectorAll(".q-num-btn").forEach(btn => {
+                btn.addEventListener("click", () => jumpToQ(+btn.dataset.idx));
+            });
+            document.querySelectorAll(".filter-chip").forEach(chip => {
+                chip.classList.toggle("active", chip.dataset.filter === gridFilter);
+                chip.onclick = () => {
+                    gridFilter = chip.dataset.filter;
+                    document.querySelectorAll(".filter-chip").forEach(c =>
+                        c.classList.toggle("active", c.dataset.filter === gridFilter)
+                    );
+                    updateQGrid();
+                };
+            });
+            updateQGrid();
+        }
+
+        function updateQGrid() {
+            const st = state[currentTopic];
+            if (!st || !st.questions) return;
+            document.querySelectorAll("#qGrid .q-num-btn").forEach(btn => {
+                const i = +btn.dataset.idx;
+                btn.classList.remove("current", "answered", "wrong", "marked");
+                if (i === st.current) btn.classList.add("current");
+                if (st.answers[i] !== null) {
+                    const a = st.answers[i];
+                    const ok = typeof a === "object" ? a.correct : st.questions[i].options[a].correct;
+                    btn.classList.add(ok ? "answered" : "wrong");
+                }
+                if (st.marked[i]) btn.classList.add("marked");
+                btn.style.display = (gridFilter === "marked" && !st.marked[i]) ? "none" : "";
+            });
+        }
+
+        function jumpToQ(idx) {
+            if (window.speechSynthesis) window.speechSynthesis.cancel();
+            const st = state[currentTopic];
+            if (idx < 0 || idx >= st.questions.length) return;
+            st.current = idx;
+            showQuestion();
+        }
+
+        function toggleQGrid() {
+            const panel = document.getElementById("qGridPanel");
+            const btn = document.getElementById("gridBtn");
+            const isOpen = panel.classList.toggle("show");
+            btn.classList.toggle("active", isOpen);
+            if (isOpen) {
+                buildQGrid();
+                const cur = panel.querySelector(".q-num-btn.current");
+                if (cur) cur.scrollIntoView({ block: "nearest", behavior: "smooth" });
+            }
+        }
+
+        function prevQ() {
+            if (window.speechSynthesis) window.speechSynthesis.cancel();
+            const st = state[currentTopic];
+            if (st.current > 0) { st.current--; showQuestion(); }
+        }
+        function nextQ() {
+            if (window.speechSynthesis) window.speechSynthesis.cancel();
+            const st = state[currentTopic];
+            if (st.current < st.questions.length - 1) { st.current++; showQuestion(); }
+        }
+
+        function resetTopic() {
+            const st = state[currentTopic];
+            st.questions = buildQuestions(currentTopic);
+            st.answers = new Array(st.questions.length).fill(null);
+            st.marked = new Array(st.questions.length).fill(false);
+            st.fillTexts = new Array(st.questions.length).fill("");
+            st.current = 0;
+            st.correct = 0;
+            gridFilter = "all";
+            document.getElementById("resultOverlay").classList.remove("show");
+            if (document.getElementById("qGridPanel").classList.contains("show")) buildQGrid();
+            showQuestion();
+        }
+
+        function showResult() {
+            const st = state[currentTopic];
+            const total = st.questions.length;
+            const pct = Math.round(st.correct / total * 100);
+            document.getElementById("resultScore").textContent = `${st.correct}/${total}`;
+            document.getElementById("resultMsg").textContent =
+                pct >= 85 ? "🎉 Xuất sắc! Bạn nắm rất vững." :
+                    pct >= 70 ? "👍 Tốt lắm! Xem lại vài câu sai nhé." :
+                        "💪 Cố lên! Tra nghĩa rồi làm lại.";
+            document.getElementById("resultOverlay").classList.add("show");
+        }
+
+        /* ========== SEARCH ========== */
+        const searchInput = document.getElementById("searchInput");
+        const lookupDrop = document.getElementById("lookupDrop");
+
+        searchInput.addEventListener("input", () => {
+            const val = searchInput.value.trim().toLowerCase();
+            if (!val) { lookupDrop.classList.remove("show"); return; }
+            const found = FULL_DICT.filter(it =>
+                it.en.toLowerCase().includes(val) || it.vi.toLowerCase().includes(val)
+            ).slice(0, 10);
+            if (!found.length) {
+                lookupDrop.innerHTML = `<div class="lookup-item"><div class="lookup-text"><div class="en">Không tìm thấy</div></div></div>`;
+            } else {
+                lookupDrop.innerHTML = found.map(it => `
+      <div class="lookup-item">
+        <div class="lookup-text">
+          <div class="en">${it.en}</div>
+          <div class="vi">${it.vi}</div>
+        </div>
+        <button type="button" class="speak-btn" data-speak="${it.en.replace(/"/g, "&quot;")}" title="Nghe phát âm">🔊</button>
+      </div>`).join("");
+                lookupDrop.querySelectorAll(".speak-btn").forEach(btn => {
+                    btn.addEventListener("click", (e) => {
+                        e.stopPropagation();
+                        speak(btn.dataset.speak, btn);
+                    });
+                });
+            }
+            lookupDrop.classList.add("show");
+        });
+        searchInput.addEventListener("focus", () => {
+            if (searchInput.value.trim()) searchInput.dispatchEvent(new Event("input"));
+        });
+        document.addEventListener("click", e => {
+            if (!e.target.closest(".search-wrap")) lookupDrop.classList.remove("show");
+        });
+
+        /* ========== EVENTS ========== */
+        document.getElementById("backBtn").addEventListener("click", closeTopic);
+        document.getElementById("prevBtn").addEventListener("click", prevQ);
+        document.getElementById("nextBtn").addEventListener("click", nextQ);
+        document.getElementById("checkBtn").addEventListener("click", showResult);
+        document.getElementById("resetBtn").addEventListener("click", resetTopic);
+        document.getElementById("gridBtn").addEventListener("click", toggleQGrid);
+        document.getElementById("resultClose").addEventListener("click", () => {
+            document.getElementById("resultOverlay").classList.remove("show");
+        });
+        document.getElementById("resultRetry").addEventListener("click", resetTopic);
+
+        let touchX = 0;
+        document.getElementById("qArea").addEventListener("touchstart", e => {
+            touchX = e.changedTouches[0].screenX;
+        }, { passive: true });
+        document.getElementById("qArea").addEventListener("touchend", e => {
+            const dx = e.changedTouches[0].screenX - touchX;
+            if (Math.abs(dx) > 60) {
+                if (dx < 0) nextQ();
+                else prevQ();
+            }
+        }, { passive: true });
+
+        renderHome();
+    </script>
+</body>
+
+</html>
